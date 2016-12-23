@@ -34,35 +34,65 @@ class Database(object):
     def add_app_language(self, app_id, app_name, app_pic_src, languages):
         app = self.get_app(app_id)
         if not app:
-            log.debug("App {} ({}) doesn't exist in DB, adding it".format(app_name, app_id))
-            app = self.add_app(app_id, app_name, app_pic_src)
+            log.debug("App '{}' ({}) doesn't exist in DB, adding it".format(app_name, app_id))
+            self.add_app(app_id, app_name, app_pic_src)
+            app = self.get_app(app_id)
 
         for name, media in languages:
             lang = self.get_lang(name, media)
             if not lang:
-                log.debug("Lang {} -  {} doesn't exist in DB, adding it".format(name, media))
-                lang = self.add_language_entry(name, media)
+                log.debug("Lang '{}' - '{}' doesn't exist in DB, adding it".format(name, media))
+                self.add_language_entry(name, media)
+                lang = self.get_lang(name, media)
 
-            app_lang_junction = self.get_app_lang_junction(app, lang)
-            if not app_lang_junction:
-                log.debug("Relationship between app {} ({}) and Lang {} -  {} doesn't exist in DB, adding it".format(app_name, app_id, name, media))
+
+            if not self.get_app_lang_junction(app, lang):
+                log.debug("Relationship between app '{}' ({}) and Lang '{}' - '{}' doesn't exist in DB, adding it".format(app_name, app_id, name, media))
                 self.add_app_lang_junction(app, lang)
 
+    def get_all_langs(self):
+        with self.flask_app.app_context():
+            pass
+
+    def get_apps_with_langs(self, languages):
+        apps = []
+        if type(languages) is not list:
+            languages = [languages]
+
+        for lang in languages:
+            with self.flask_app.app_context():
+                apps += lang.apps
+
+        return apps
+
     def get_lang(self, name, media):
-        pass
+        with self.flask_app.app_context():
+            return Steam_Language.query.filter_by(language_name=name, language_presentation=media).first()
 
     def get_app_lang_junction(self, app, lang):
-        pass
+        with self.flask_app.app_context():
+            return [app for app in lang.apps]
 
     def get_app(self, app_id):
-        pass
+        with self.flask_app.app_context():
+            return Steam_App.query.filter_by(steam_app_id=app_id).first()
 
     def add_app(self, app_id, app_name, app_pic_src):
-        pass
+        with self.flask_app.app_context():
+            db.session.add(Steam_App(
+                            app_id = app_id,
+                            app_name = app_name,
+                            app_pic = app_pic_src))
+            db.session.commit()
 
     def add_language_entry(self, name, media):
-        pass
+        with self.flask_app.app_context():
+            db.session.add(Steam_Language(
+                             name=name,
+                             presentation=media))
+            return db.session.commit()
 
     def add_app_lang_junction(self, app, lang):
-        pass
-
+        with self.flask_app.app_context():
+            lang.apps.append(app)
+            db.session.commit()

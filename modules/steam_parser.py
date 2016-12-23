@@ -46,7 +46,8 @@ def parse_html(soup):
 
 def populate_db(db):
     apps = get_list_appids()
-    log.info("Fetched {0} app ids".format(len(apps)))    
+    log.info("Fetched {0} app ids".format(len(apps)))
+    log.error("HARDCODED LIMIT OF 100")
     limit = 100;
     for appid, appname in ((app['appid'], app['name']) for app in apps):
         try:
