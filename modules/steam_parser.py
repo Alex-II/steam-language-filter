@@ -59,5 +59,7 @@ def populate_db(db):
             log.debug("Steam webpage for app '{0}' ({1}) could not be parsed correctly: {2}".format(appname, appid, e))
             continue
         log.debug("Found Steam app '{0}' ({1}) with languages {2}".format(appname, appid, languages))
+        db.find_apps_for_language_ids([1,2])
         db.add_app_language(appid, app_name, app_pic_src, languages)
+
         

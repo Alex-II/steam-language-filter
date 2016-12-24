@@ -10,7 +10,7 @@ class Steam_App(db.Model):
     __tablename__ = "Steam_App"
     id = db.Column(db.Integer, primary_key=True)
     steam_app_id = db.Column(db.String(10), unique=True)
-    steam_app_name = db.Column(db.String(200), unique=True)
+    steam_app_name = db.Column(db.String(200))
     steam_app_pic = db.Column(db.String(300))
     languages = db.relationship('Steam_Language', secondary=steam_apps_langs_relationship,
                                 backref=db.backref('apps', lazy='dynamic'))
