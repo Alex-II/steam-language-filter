@@ -51,14 +51,11 @@ class Database(object):
 
     def find_apps_for_language_ids(self, language_ids):
         with self.flask_app.app_context():
-            apps = []
             if type(language_ids) is not list:
                 language_ids = [language_ids]
+            language_ids = set(language_ids)
 
-            for lang in language_ids:
-                with self.flask_app.app_context():
-                    apps += lang.apps
-
+            apps = list(db.session.query(Steam_App).join(Steam_App.languages).filter(Steam_Language.id.in_(language_ids)))
             return apps
 
     def _get_lang(self, name, media):
