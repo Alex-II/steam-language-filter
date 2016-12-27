@@ -62,7 +62,7 @@ class Database(object):
         return Steam_Language.query.filter_by(language_name=name, language_presentation=media).first()
 
     def _does_app_have_lang(self, app, lang):
-            return app in lang.apps
+        return app in lang.apps
 
     def _get_app(self, app_id):
         return Steam_App.query.filter_by(steam_app_id=app_id).first()
