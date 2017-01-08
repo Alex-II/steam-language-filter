@@ -3,4 +3,6 @@
 *.sql*
 activate_env
 python_env/
+steam-api-env/*
+.vscode/*
 
