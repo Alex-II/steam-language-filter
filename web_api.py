@@ -61,7 +61,6 @@ def get_apps(csv_list_of_language_ids, start_index, end_index):
         return "Invalid value for third positional argument (`end_index`)"
 
     apps = db.find_apps_for_language_ids(language_ids, start_index, end_index)
-    apps = [{"steam_app_id": app.steam_app_id, "steam_app_name": app.steam_app_name, "steam_app_pic": app.steam_app_pic} for app in apps]
     return json.dumps(apps)
 
 if __name__ == "__main__":

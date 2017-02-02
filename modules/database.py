@@ -56,6 +56,10 @@ class Database(object):
             apps = list(db.session.query(Steam_App).join(Steam_App.languages).filter(Steam_Language.id.in_(language_ids)))
             apps = apps[first:last]
 
+            apps = [{"steam_app_id": app.steam_app_id, "steam_app_name": app.steam_app_name,
+                     "steam_app_pic": app.steam_app_pic}
+                    for app in apps]
+
             return apps
 
     def _get_lang(self, name, media):
