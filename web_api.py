@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, send_from_directory
 from modules.database import Database
 from modules.config import get_config
 import sys, os, logging, json
@@ -64,4 +64,12 @@ def get_apps(csv_list_of_language_ids, start_index, end_index):
     return json.dumps(apps)
 
 if __name__ == "__main__":
+        @application.route('/')
+        def index():
+            return application.send_static_file('index.html')
+
+        @application.route('/<path:path>')
+        def serve_static(path):
+            return send_from_directory('static', path)
+
         application.run(host='0.0.0.0', port=8080, debug=True)
