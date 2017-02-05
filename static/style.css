@@ -1,0 +1,76 @@
+.pillarbox{
+        background-color:  black;
+}
+
+.lang-input {
+        min-height: 50px;
+        padding: 30px;
+
+
+}
+.title{
+        background-color: #5D5393;
+
+        color: #FAFDFF;
+        font-family: 'Cuprum', sans-serif;
+}
+
+.title-background{
+        background-color: #5D5393;
+}
+
+.content{
+        background-color: #181621;
+        color: #FAFDFF;
+        font-family: 'Arvo', serif;
+        font-size: large;
+
+
+}
+
+.custom-offset1{
+        margin: 0px 0px 0px 100px;
+}
+
+.results-text{
+        font-family: 'Arvo', serif;
+        /*ont-family: 'Raleway', sans-serif;*/
+}
+
+body{
+        background-color: black;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+.selected{
+        background-color: #5D5393;
+        cursor: pointer;
+}
+
+.selected:hover{
+        background-color: #292541;
+}
+
+.selected:active{
+        background-color: #151320;
+}
+
+
+.unselected {
+    cursor: pointer;
+}
+
+.unselected:hover {
+    background-color: #c2beda;
+}
+
+.unselected:active {
+    background-color: #f0eff6;
+}
